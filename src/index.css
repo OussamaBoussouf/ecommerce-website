@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+
+  html {
+    font-family: "Poppins", system-ui, sans-serif;
+  }
+
   @font-face {
     font-family: "Poppins-light";
     src: url("./assets/fonts/Poppins-Light.ttf");
