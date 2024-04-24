@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   return (
     <nav className="font-poppins bg-slate-200 h-[50px] p-2">
       <div className="flex justify-between max-w-[1300px] items-center lg:mx-auto">
