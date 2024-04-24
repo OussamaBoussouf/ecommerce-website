@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <nav className="font-poppins bg-slate-200 h-[50px] p-2">
+    <nav className="font-poppins h-[50px] px-3 py-2 md:px-6">
       <div className="flex justify-between max-w-[1300px] items-center lg:mx-auto">
         {/* LEFT BAR */}
         <div className="hidden md:block">
@@ -49,7 +49,7 @@ function Navbar() {
           </div>
           {/* MENU BAR */}
           {isMenuOpen ? (
-            <div className="absolute bg-white right-0 top-8 rounded-lg p-3 space-y-3 w-28 shadow-xl md:hidden">
+            <div className="absolute z-10 bg-white right-0 top-8 rounded-lg p-3 space-y-3 w-28 shadow-2xl md:hidden">
               <div>
                 <Link to="/products/1">Men</Link>
               </div>
