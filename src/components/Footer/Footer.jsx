@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="font-poppins p-2">
-      <div className="max-w-[1300px] mx-auto">
+    <footer className="font-poppins px-3 md:px-6">
+      <div className="max-w-[1300px] mx-auto py-10">
         <div className="border-b-[1px] border-b-black mb-5 md:flex md:gap-3">
           <ul className="space-y-1 font-poppins-light mb-3 basis-1/6">
             <li className="font-poppins-bold">Categories</li>
@@ -48,10 +48,10 @@ function Footer() {
             </p>
           </div>
         </div>
-        <div className="py-2 flex justify-between items-center">
-          <h2 className="text-2xl font-poppins-bold">
-            LATITUDE
-            <span className="font-poppins-light text-sm align-middle ms-4">
+        <div className="py-2 md:flex justify-between items-center">
+          <h2 className="text-2xl font-poppins-bold mb-5 md:mb-0">
+            LATITUDE <br />
+            <span className="font-poppins-light text-sm align-middle">
               &copy; Copyright 2024. All Rights Reserved
             </span>
           </h2>
