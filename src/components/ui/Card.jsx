@@ -1,9 +1,10 @@
 import React from "react";
 
 function Card({product}) {
+  //w-56
   return (
-    <div className="w-56 flex-shrink-0" key={product.id}>
-      <div className="h-80 overflow-hidden mb-2">
+    <div key={product.id}>
+      <div className="h-60 md:h-80 overflow-hidden mb-2">
         <img
           src={product.img}
           alt="shirt image"

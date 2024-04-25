@@ -39,7 +39,7 @@ function NewArrivals() {
     <section className="max-w-[1300px] mx-auto py-24 px-3 md:px-6 lg:px-0">
       <div className="max-w-[1100px] mx-auto">
         <h2 className="font-poppins-bold text-3xl mb-8">New Arrivals</h2>
-        <div className="grid gap-y-4 justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product) => (
             <Card key={product.id} product={product}/>
           ))}

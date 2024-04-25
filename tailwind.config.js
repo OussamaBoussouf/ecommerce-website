@@ -11,6 +11,9 @@ export default {
         "light-blue": "#6ccdc2",
         
       },
+      gridTemplateColumns: {
+        'auto-fill': 'repeat(auto-fill, minmax(14rem, 1fr))',
+      },
       colors:{
         "dark-blue": "#19302e"
       },
