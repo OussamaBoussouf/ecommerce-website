@@ -1,11 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
+import menCollectionBanner from "../../assets/img/men-collection-banner.jpg";
+import List from "../../components/List/List";
+import { useParams } from "react-router-dom";
 
 function Products() {
-    return (
-        <div>
-            Category
+  const catId = parseInt(useParams().id);
+  const [price, setPrice] = useState(null);
+
+  return (
+    <div className="max-w-[1300px] mx-auto py-16 px-3 md:flex md:gap-10 lg:gap-16">
+      <aside className="min-w-[200px]">
+        <div className="md:sticky md:top-3">
+          <h2 className="font-poppins-bold text-xl mb-3">Product Categories</h2>
+          <div className="space-x-1 mb-3">
+            <input type="checkbox" id="1" />
+            <label htmlFor="1">T-shirts</label>
+          </div>
+          <div className="space-x-1 mb-3">
+            <input type="checkbox" id="2" />
+            <label htmlFor="2">Jackets</label>
+          </div>
+          <div className="space-x-1 mb-3">
+            <input type="checkbox" id="3" />
+            <label htmlFor="3">Coats</label>
+          </div>
+          <div>
+            <h2 className="font-poppins-bold text-xl mb-3">Sort by</h2>
+            <div className="space-x-1 mb-3">
+              <input
+                type="radio"
+                name="price"
+                value="asc"
+                id="asc"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              <label htmlFor="asc">Price (Lowest first)</label>
+            </div>
+            <div className="space-x-1 mb-3">
+              <input
+                type="radio"
+                name="price"
+                value="desc"
+                id="desc"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              <label htmlFor="desc">Price (Highest first)</label>
+            </div>
+          </div>
         </div>
-    );
+      </aside>
+      <section className="flex-grow">
+        <div className="mb-16">
+          <img
+            className="rounded-xl w-full object-cover max-h-[250px]"
+            src={menCollectionBanner}
+            alt="men collection banner"
+          />
+        </div>
+        <List categorie={catId}/>
+      </section>
+    </div>
+  );
 }
 
 export default Products;
