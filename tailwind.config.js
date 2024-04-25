@@ -6,9 +6,14 @@ export default {
   ],
   theme: {
     extend: {
-      // height:{
-      //   "hero-height": calc(100)
-      // },
+      backgroundColor:{
+        "light-green": "#07a795",
+        "light-blue": "#6ccdc2",
+        
+      },
+      colors:{
+        "dark-blue": "#19302e"
+      },
       fontFamily: {
         poppins: 'Poppins, sans-serif', // Adds a new `font-display` class
         "poppins-bold": 'Poppins-bold, sans-serif', // Adds a new `font-display` class
