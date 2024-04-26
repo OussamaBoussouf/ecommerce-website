@@ -6,9 +6,12 @@ import { ShoppingCart } from "lucide-react";
 import { X } from "lucide-react";
 //
 import { Link } from "react-router-dom";
+import Cart from "../Cart/Cart";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
   return (
     <nav className="font-poppins h-[50px] px-3 py-2 md:px-6">
       <div className="flex justify-between max-w-[1300px] items-center lg:mx-auto">
@@ -28,7 +31,9 @@ function Navbar() {
         </div>
         {/* LOGO */}
         <div>
-          <Link to="/" className="text-2xl font-poppins-bold">LATITUDE</Link>
+          <Link to="/" className="text-2xl font-poppins-bold">
+            LATITUDE
+          </Link>
         </div>
         {/* RIGHT BAR */}
         <div className="relative">
@@ -36,8 +41,11 @@ function Navbar() {
             <button type="button">
               <UserRound size={20} />
             </button>
-            <button type="button">
+            <button onClick={() => setIsCartOpen(true)} className="relative" type="button">
               <ShoppingCart size={20} />
+              <span className="absolute top-[-9px] right-[-9px] h-5 w-5 text-sm bg-blue-500 text-white flex items-center justify-center rounded-full">
+                0
+              </span>
             </button>
             <button
               type="button"
@@ -63,6 +71,7 @@ function Navbar() {
           ) : null}
         </div>
       </div>
+      {isCartOpen ? <Cart onClose={() => setIsCartOpen(false)}/> : null}
     </nav>
   );
 }
