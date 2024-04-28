@@ -43,7 +43,7 @@ function Navbar() {
             </button>
             <button onClick={() => setIsCartOpen(true)} className="relative" type="button">
               <ShoppingCart size={20} />
-              <span className="absolute top-[-9px] right-[-9px] h-5 w-5 text-sm bg-blue-500 text-white flex items-center justify-center rounded-full">
+              <span className="absolute top-[-9px] right-[-9px] h-5 w-5 text-xs bg-blue-500 text-white flex items-center justify-center rounded-full">
                 0
               </span>
             </button>
@@ -59,13 +59,13 @@ function Navbar() {
           {isMenuOpen ? (
             <div className="absolute z-10 bg-white right-0 top-8 rounded-lg p-3 space-y-3 w-28 shadow-2xl md:hidden">
               <div>
-                <Link to="/products/1">Men</Link>
+                <Link to="/products/men">Men</Link>
               </div>
               <div>
-                <Link to="/products/2">Women</Link>
+                <Link to="/products/women">Women</Link>
               </div>
               <div>
-                <Link to="/products/3">Kids</Link>
+                <Link to="/products/kids">Kids</Link>
               </div>
             </div>
           ) : null}

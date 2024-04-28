@@ -1,11 +1,23 @@
 import React, { useState } from "react";
-import menCollectionBanner from "../../assets/img/men-collection-banner.jpg";
 import List from "../../components/List/List";
 import { useParams } from "react-router-dom";
 
 function Products() {
-  const catId = parseInt(useParams().id);
-  const [price, setPrice] = useState(null);
+  const catId = useParams().id;
+  const [sortPrice, setSortPrice] = useState('desc');
+  const [selectedSubCat, setSelectedSubCat] = useState([]);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const isChecked = e.target.checked;
+    setSelectedSubCat(
+      isChecked
+        ? [...selectedSubCat, value]
+        : selectedSubCat.filter((item) => item != value)
+    );
+  };
+
+ 
 
   return (
     <div className="max-w-[1300px] mx-auto py-16 px-3 md:flex md:gap-10 lg:gap-16">
@@ -13,15 +25,30 @@ function Products() {
         <div className="md:sticky md:top-3">
           <h2 className="font-poppins-bold text-xl mb-3">Product Categories</h2>
           <div className="space-x-1 mb-3">
-            <input type="checkbox" id="1" />
+            <input
+              type="checkbox"
+              id="1"
+              value="T-shirt"
+              onChange={(e) => handleChange(e)}
+            />
             <label htmlFor="1">T-shirts</label>
           </div>
           <div className="space-x-1 mb-3">
-            <input type="checkbox" id="2" />
+            <input
+              type="checkbox"
+              id="2"
+              value="Jacket"
+              onChange={(e) => handleChange(e)}
+            />
             <label htmlFor="2">Jackets</label>
           </div>
           <div className="space-x-1 mb-3">
-            <input type="checkbox" id="3" />
+            <input
+              type="checkbox"
+              id="3"
+              value="Coat"
+              onChange={(e) => handleChange(e)}
+            />
             <label htmlFor="3">Coats</label>
           </div>
           <div>
@@ -32,7 +59,7 @@ function Products() {
                 name="price"
                 value="asc"
                 id="asc"
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => setSortPrice(e.target.value)}
               />
               <label htmlFor="asc">Price (Lowest first)</label>
             </div>
@@ -42,7 +69,7 @@ function Products() {
                 name="price"
                 value="desc"
                 id="desc"
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => setSortPrice(e.target.value)}
               />
               <label htmlFor="desc">Price (Highest first)</label>
             </div>
@@ -50,14 +77,7 @@ function Products() {
         </div>
       </aside>
       <section className="flex-grow">
-        <div className="mb-16">
-          <img
-            className="rounded-xl w-full object-cover max-h-[250px]"
-            src={menCollectionBanner}
-            alt="men collection banner"
-          />
-        </div>
-        <List categorie={catId}/>
+        <List category={catId} sortPrice={sortPrice} selectedSubCat={selectedSubCat} />
       </section>
     </div>
   );
