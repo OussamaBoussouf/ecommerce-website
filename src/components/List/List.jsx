@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 //IMAGES
 import Card from "../../components/ui/Card";
 
 import { useFetch } from "../../hooks/useFetch";
 
 function List({ category, selectedSubCat, sortPrice }) {
-  console.log(sortPrice);
 
   const {
     data: products,
