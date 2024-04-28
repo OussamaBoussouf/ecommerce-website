@@ -2,23 +2,26 @@ import React, { useEffect, useRef } from "react";
 //ICON
 import { X } from "lucide-react";
 
-import shirtOne from "../../assets/img/shirt_1.jpg";
-import shirtTwo from "../../assets/img/shirt_2.jpg";
-import shirtThree from "../../assets/img/shirt_3.webp";
-import shirtFour from "../../assets/img/shirt_5.jpg";
+import shirtOne from "../../assets/img/t-shirt_1.webp";
+import shirtTwo from "../../assets/img/t-shirt_b2.webp";
+import shirtThree from "../../assets/img/t-shirt_b3.webp";
+import shirtFour from "../../assets/img/t-shirt-navy1.webp";
 
 function Cart({ onClose }) {
   const porducts = [
     {
       id: 1,
       img: shirtOne,
-    }, {
+    },
+    {
       id: 2,
       img: shirtTwo,
-    }, {
+    },
+    {
       id: 3,
       img: shirtThree,
-    }, {
+    },
+    {
       id: 4,
       img: shirtFour,
     },
@@ -43,7 +46,7 @@ function Cart({ onClose }) {
       onClick={handleClose}
       className="inset-0 z-50 bg-transparent-black fixed"
     >
-      <div className="fixed h-screen pt-20 px-5 right-0 w-4/5 md:w-[550px] bg-white z-50 animate-drawer shadow-2xl">
+      <div className="fixed h-screen pt-20 px-5 right-0 w-[90%] md:w-[550px] bg-white z-50 animate-drawer shadow-2xl">
         <button
           onClick={onClose}
           type="button"
@@ -61,27 +64,29 @@ function Cart({ onClose }) {
               />
               <div>
                 <h2 className="sm:text-xl font-poppins-bold">White t-shirt</h2>
-                <p>T-Shirt</p>
-                <p>1 x $12.20</p>
-                <button
-                  type="button"
-                  className="border-2 mt-2 px-3 rounded-lg border-red-500 hover:bg-red-500 hover:text-white"
-                >
-                  Delete
-                </button>
+                <p className="text-xs md:text-sm mb-1">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Facilis soluta est cupiditate dolorum...
+                </p>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm md:text-[1rem]">1 x $12.20</p>
+                  <span className="text-red-500 text-sm md:text-[1rem]">
+                    Remove
+                  </span>
+                </div>
               </div>
             </div>
           ))}
         </div>
         <div>
           <p className="flex justify-between items-center my-5">
-            <b>Subtotal:</b> <span className="ps-">$99</span>
+            <b>Subtotal : </b> <span className="ps-">$99</span>
           </p>
           <button
             type="button"
-            className="w-full active:scale-95 bg-red-500 py-3 font-poppins-bold rounded-lg text-white"
+            className="w-full active:scale-95 bg-purple-700 py-3 font-poppins-bold rounded-lg text-white"
           >
-            PROCED TO CHECKOUT
+            CHECKOUT
           </button>
         </div>
       </div>
