@@ -4,6 +4,9 @@ import { AlignJustify } from "lucide-react";
 import { UserRound } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 import { X } from "lucide-react";
+//REDUX
+import { useSelector } from "react-redux";
+
 //
 import { Link } from "react-router-dom";
 import Cart from "../Cart/Cart";
@@ -11,6 +14,7 @@ import Cart from "../Cart/Cart";
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const cart = useSelector((state) => state.cart.products);
 
   return (
     <nav className="font-poppins h-[50px] px-3 py-2 md:px-6">
@@ -41,11 +45,17 @@ function Navbar() {
             <button type="button">
               <UserRound size={20} />
             </button>
-            <button onClick={() => setIsCartOpen(true)} className="relative" type="button">
+            <button
+              onClick={() => setIsCartOpen(true)}
+              className="relative"
+              type="button"
+            >
               <ShoppingCart size={20} />
-              <span className="absolute top-[-9px] right-[-9px] h-5 w-5 text-xs bg-blue-500 text-white flex items-center justify-center rounded-full">
-                0
-              </span>
+              {cart.length != 0 ? (
+                <span className="absolute top-[-9px] right-[-9px] h-5 w-5 text-xs bg-blue-500 text-white flex items-center justify-center rounded-full">
+                  {cart.length}
+                </span>
+              ) : null}
             </button>
             <button
               type="button"
@@ -71,7 +81,7 @@ function Navbar() {
           ) : null}
         </div>
       </div>
-      {isCartOpen ? <Cart onClose={() => setIsCartOpen(false)}/> : null}
+      {isCartOpen ? <Cart onClose={() => setIsCartOpen(false)} /> : null}
     </nav>
   );
 }

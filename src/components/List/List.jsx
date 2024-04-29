@@ -12,7 +12,7 @@ function List({ category, selectedSubCat, sortPrice }) {
     error,
   } = useFetch(`*[_type == "category" && category == "men"]{
     "products": products[${selectedSubCat
-      .map((cat) => `@->type == "${cat}"`)
+      .map((subCat) => `@->type == "${subCat}"`)
       .join(" || ")}] | order(@->product_price ${sortPrice})->{
       "id":_id,
       product_name,

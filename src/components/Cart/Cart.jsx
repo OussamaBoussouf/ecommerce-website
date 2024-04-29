@@ -1,33 +1,23 @@
 import React, { useEffect, useRef } from "react";
 //ICON
 import { X } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
+import { removeItem } from "../../redux/cartSlice";
+//SANITY
+import imageUrlBuilder from "@sanity/image-url";
+import { client } from "../../sanity/client";
 
-import shirtOne from "../../assets/img/t-shirt_1.webp";
-import shirtTwo from "../../assets/img/t-shirt_b2.webp";
-import shirtThree from "../../assets/img/t-shirt_b3.webp";
-import shirtFour from "../../assets/img/t-shirt-navy1.webp";
+const builder = imageUrlBuilder(client);
+
+function urlFor(source) {
+  return builder.image(source);
+}
 
 function Cart({ onClose }) {
-  const porducts = [
-    {
-      id: 1,
-      img: shirtOne,
-    },
-    {
-      id: 2,
-      img: shirtTwo,
-    },
-    {
-      id: 3,
-      img: shirtThree,
-    },
-    {
-      id: 4,
-      img: shirtFour,
-    },
-  ];
-
+  const cart = useSelector((state) => state.cart.products);
+  const dispatch = useDispatch();
   const drawerNode = useRef(null);
+  const total = cart.reduce((accumaltor, product) => accumaltor += product.price * product.quantity, 0 ).toFixed(2);
   const handleClose = (event) => {
     if (event.target === drawerNode.current) {
       onClose();
@@ -36,9 +26,12 @@ function Cart({ onClose }) {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-
+    
     return () => (document.body.style.overflow = "visible");
   }, []);
+
+  console.log(cart);
+  
 
   return (
     <div
@@ -55,22 +48,21 @@ function Cart({ onClose }) {
           <X size={20} />
         </button>
         <div className="w-full max-h-[65vh] overflow-y-auto">
-          {porducts.map((product) => (
+          {cart.map((product) => (
             <div key={product.id} className="flex gap-4 mb-5">
               <img
                 className="w-28 h-28 rounded-lg object-cover aspect-square"
-                src={product.img}
+                src={urlFor(product.image).url()}
                 alt="blue shirt"
               />
               <div>
-                <h2 className="sm:text-xl font-poppins-bold">White t-shirt</h2>
+                <h2 className="sm:text-xl font-poppins-bold">{product.name}</h2>
                 <p className="text-xs md:text-sm mb-1">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Facilis soluta est cupiditate dolorum...
+                  {product.description.substring(0, 150)+'...'}
                 </p>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm md:text-[1rem]">1 x $12.20</p>
-                  <span className="text-red-500 text-sm md:text-[1rem]">
+                  <p className="text-sm md:text-[1rem]">{product?.quantity} x ${product.price}</p>
+                  <span onClick={() => dispatch(removeItem({id: product.id}))} className="text-red-500 cursor-pointer text-sm md:text-[1rem]">
                     Remove
                   </span>
                 </div>
@@ -80,7 +72,7 @@ function Cart({ onClose }) {
         </div>
         <div>
           <p className="flex justify-between items-center my-5">
-            <b>Subtotal : </b> <span className="ps-">$99</span>
+            <b>Subtotal : </b> <span className="ps-">${total}</span>
           </p>
           <button
             type="button"
