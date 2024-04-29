@@ -14,7 +14,7 @@ import Cart from "../Cart/Cart";
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const cart = useSelector((state) => state.cart.products);
+  const cart = useSelector((state) => state.products);
 
   return (
     <nav className="font-poppins h-[50px] px-3 py-2 md:px-6">

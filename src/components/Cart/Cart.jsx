@@ -14,7 +14,7 @@ function urlFor(source) {
 }
 
 function Cart({ onClose }) {
-  const cart = useSelector((state) => state.cart.products);
+  const cart = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const drawerNode = useRef(null);
   const total = cart.reduce((accumaltor, product) => accumaltor += product.price * product.quantity, 0 ).toFixed(2);
@@ -29,9 +29,6 @@ function Cart({ onClose }) {
     
     return () => (document.body.style.overflow = "visible");
   }, []);
-
-  console.log(cart);
-  
 
   return (
     <div
