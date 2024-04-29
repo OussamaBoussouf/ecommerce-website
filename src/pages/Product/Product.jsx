@@ -4,7 +4,10 @@ import { ShoppingCart } from "lucide-react";
 import { Truck } from "lucide-react";
 import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
-
+//REDUX
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartSlice";
+//SANITY
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../../sanity/client";
 
@@ -15,6 +18,7 @@ function urlFor(source) {
 }
 
 function Product() {
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const id = useParams().id;
   const {
@@ -22,6 +26,7 @@ function Product() {
     loading,
     error,
   } = useFetch(`*[_type == "product" && _id == "${id}"]{
+    "id":_id,
     product_name,
     product_price,
     product_description,
@@ -37,16 +42,16 @@ function Product() {
 
   return (
     <section>
-      <div className="max-w-[1100px] flex flex-col md:flex-row py-16 px-10 sm:px-20 md:px-5 mx-auto gap-5">
-        <div className="flex flex-col gap-3 md:flex-row-reverse ">
+      <div className="max-w-[1100px] w-full flex flex-col md:flex-row py-10 px-5 sm:px-20 md:px-5 mx-auto gap-5">
+        <div className="flex flex-col gap-3 md:flex-row-reverse">
           <img
             className="h-full w-full object-cover object-center"
             src={activeImage ? activeImage : urlFor(product[0].image).url()}
             alt="product shirt"
           />
-          <div className="w-full flex justify-between md:flex-col">
+          <div className="flex justify-between flex-shrink-0 md:flex-col">
             <img
-              className="cursor-pointer w-24 object-center object-cover"
+              className="cursor-pointer w-24  object-center object-cover"
               src={urlFor(product[0].image).url()}
               onClick={() => setActiveImage(urlFor(product[0].image).url())}
               alt="product shirt"
@@ -63,7 +68,7 @@ function Product() {
           </div>
         </div>
         <div className="md:w-2/4">
-          <h2 className="text-4xl font-poppins-bold mb-5 md:mb-3">
+          <h2 className="text-4xl font-poppins-bold mb-1 md:mb-3">
             {product[0].product_name}
           </h2>
           <p className="text-2xl mb-2 font-poppins-bold">
@@ -93,7 +98,16 @@ function Product() {
           </div>
           <button
             type="button"
+            aria-label="Add product to cart"
             className="px-4 py-2 text-sm bg-purple-700 rounded-lg text-white mb-5 flex items-center gap-x-2 active:scale-95"
+            onClick={() => dispatch(addToCart({
+              id:product[0].id,
+              name:product[0].product_name,
+              price:product[0].product_price,
+              description:product[0].product_description,
+              image: product[0].image,
+              quantity
+            }))}
           >
             <ShoppingCart size={20} /> ADD TO CART
           </button>

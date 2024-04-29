@@ -51,6 +51,15 @@ function Products() {
             />
             <label htmlFor="3">Coats</label>
           </div>
+          <div className="space-x-1 mb-3">
+            <input
+              type="checkbox"
+              id="3"
+              value="Hoodie"
+              onChange={(e) => handleChange(e)}
+            />
+            <label htmlFor="3">Hoodies</label>
+          </div>
           <div>
             <h2 className="font-poppins-bold text-xl mb-3">Sort by</h2>
             <div className="space-x-1 mb-3">
