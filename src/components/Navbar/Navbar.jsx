@@ -23,13 +23,13 @@ function Navbar() {
         <div className="hidden md:block">
           <div className="flex items-center space-x-5">
             <div className="hover:font-bold">
-              <Link to="/products/1">Men</Link>
+              <Link to="/products/men">Men</Link>
             </div>
             <div className="hover:font-bold">
-              <Link to="/products/2">Women</Link>
+              <Link to="/products/women">Women</Link>
             </div>
             <div className="hover:font-bold">
-              <Link to="/products/3">Kids</Link>
+              <Link to="/products/kids">Kids</Link>
             </div>
           </div>
         </div>

@@ -32,9 +32,12 @@ function Product() {
     product_description,
     "image": product_image.asset,
     "sub_images": sub_images[].asset,
+    stripe_id,
     type
   }`);
   const [activeImage, setActiveImage] = useState(null);
+
+  console.log(product);
 
   if (loading) return <p>Loading...</p>;
 
@@ -106,6 +109,7 @@ function Product() {
               price:product[0].product_price,
               description:product[0].product_description,
               image: product[0].image,
+              stripe_id: product[0].stripe_id,
               quantity
             }))}
           >
