@@ -23,13 +23,13 @@ function Navbar() {
         <div className="hidden md:block">
           <div className="flex items-center space-x-5">
             <div className="hover:font-bold">
-              <Link to="/products/1">Men</Link>
+              <Link to="/">Home</Link>
             </div>
             <div className="hover:font-bold">
-              <Link to="/products/2">Women</Link>
+              <Link to="/products/men">Men</Link>
             </div>
             <div className="hover:font-bold">
-              <Link to="/products/3">Kids</Link>
+              <Link to="/products/women">Women</Link>
             </div>
           </div>
         </div>
@@ -69,13 +69,13 @@ function Navbar() {
           {isMenuOpen ? (
             <div className="absolute z-10 bg-white right-0 top-8 rounded-lg p-3 space-y-3 w-28 shadow-2xl md:hidden">
               <div>
+                <Link to="/">Home</Link>
+              </div>
+              <div>
                 <Link to="/products/men">Men</Link>
               </div>
               <div>
                 <Link to="/products/women">Women</Link>
-              </div>
-              <div>
-                <Link to="/products/kids">Kids</Link>
               </div>
             </div>
           ) : null}

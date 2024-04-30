@@ -6,6 +6,8 @@ import { removeItem } from "../../redux/cartSlice";
 //SANITY
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../../sanity/client";
+//
+import { loadStripe } from "@stripe/stripe-js";
 
 const builder = imageUrlBuilder(client);
 
@@ -13,11 +15,25 @@ function urlFor(source) {
   return builder.image(source);
 }
 
+let stripePromise;
+
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(import.meta.env.VITE_PUBLIC_KEY);
+  }
+  return stripePromise;
+};
+
 function Cart({ onClose }) {
   const cart = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const drawerNode = useRef(null);
-  const total = cart.reduce((accumaltor, product) => accumaltor += product.price * product.quantity, 0 ).toFixed(2);
+  const total = cart
+    .reduce(
+      (accumaltor, product) => (accumaltor += product.price * product.quantity),
+      0
+    )
+    .toFixed(2);
   const handleClose = (event) => {
     if (event.target === drawerNode.current) {
       onClose();
@@ -26,9 +42,29 @@ function Cart({ onClose }) {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    
+
     return () => (document.body.style.overflow = "visible");
   }, []);
+
+  const items = cart.map((product) => {
+    return {
+      price: product.stripe_id,
+      quantity: product.quantity,
+    };
+  });
+
+  const checkoutOptions = {
+    lineItems: items,
+    mode: "payment",
+    successUrl: `${window.location.origin}/success`,
+    cancelUrl: `${window.location.origin}`,
+  };
+
+  const redirectToCheckout = async () => {
+    const stripe = await getStripe();
+    const { error } = await stripe.redirectToCheckout(checkoutOptions);
+    console.log("Stripe checkout error", error);
+  };
 
   return (
     <div
@@ -40,7 +76,7 @@ function Cart({ onClose }) {
         <button
           onClick={onClose}
           type="button"
-          className="lg:hover:bg-slate-300 bg-slate-200 float-end p-1 rounded-full absolute right-5 top-5"
+          className="md:hover:bg-slate-300 bg-slate-200 float-end p-1 rounded-full absolute right-5 top-5"
         >
           <X size={20} />
         </button>
@@ -55,11 +91,16 @@ function Cart({ onClose }) {
               <div>
                 <h2 className="sm:text-xl font-poppins-bold">{product.name}</h2>
                 <p className="text-xs md:text-sm mb-1">
-                  {product.description.substring(0, 150)+'...'}
+                  {product.description.substring(0, 150) + "..."}
                 </p>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm md:text-[1rem]">{product?.quantity} x ${product.price}</p>
-                  <span onClick={() => dispatch(removeItem({id: product.id}))} className="text-red-500 cursor-pointer text-sm md:text-[1rem]">
+                  <p className="text-sm md:text-[1rem]">
+                    {product?.quantity} x ${product.price}
+                  </p>
+                  <span
+                    onClick={() => dispatch(removeItem({ id: product.id }))}
+                    className="text-red-500 cursor-pointer text-sm md:text-[1rem]"
+                  >
                     Remove
                   </span>
                 </div>
@@ -73,7 +114,13 @@ function Cart({ onClose }) {
           </p>
           <button
             type="button"
-            className="w-full active:scale-95 bg-purple-700 py-3 font-poppins-bold rounded-lg text-white"
+            disabled={cart.length === 0 && true}
+            onClick={redirectToCheckout}
+            className={
+              cart.length === 0
+                ? "w-full bg-gray-300 py-3 font-poppins-bold rounded-lg text-white"
+                : "w-full active:scale-95 bg-purple-700 py-3 font-poppins-bold rounded-lg text-white"
+            }
           >
             CHECKOUT
           </button>

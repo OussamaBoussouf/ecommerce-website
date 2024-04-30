@@ -5,6 +5,8 @@ import Product from "./pages/Product/Product";
 import Products from "./pages/Products/Products";
 import NavBar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import "@stripe/stripe-js";
+import Success from "./pages/SuccessPage/Success";
 
 
 function App() {
@@ -34,6 +36,10 @@ function App() {
         {
           path: "/products/:id",
           element: <Products />,
+        },
+        {
+          path: "/success",
+          element: <Success />,
         },
       ]
     }
