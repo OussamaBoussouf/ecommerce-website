@@ -16,7 +16,7 @@ function HeroSection() {
           Discover your personal style with our premium clothing collection
         </h1>
         <ButtonLink
-          path="/product/1"
+          path="/products/women"
           className="text-sm md:text-lg bg-white transition-colors duration-700 ease-in-out hover:bg-black hover:text-white font-poppins-bold px-8 py-3"
         >
           SHOP NOW

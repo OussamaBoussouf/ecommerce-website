@@ -19,9 +19,7 @@ let stripePromise;
 
 const getStripe = () => {
   if (!stripePromise) {
-    stripePromise = loadStripe(
-      "pk_test_51P8pnT2M6r1QsjNjSoGfzVGSUuexFOPgHMsnXyyuv2ZBM29SYWqYFgBw5Rvi3Hssbtomghkk3RvXLkxrzSKoYKio00k09ARUZB"
-    );
+    stripePromise = loadStripe(import.meta.env.VITE_PUBLIC_KEY);
   }
   return stripePromise;
 };
@@ -59,7 +57,7 @@ function Cart({ onClose }) {
     lineItems: items,
     mode: "payment",
     successUrl: `${window.location.origin}/success`,
-    cancelUrl: `${window.location.origin}/cancel`,
+    cancelUrl: `${window.location.origin}`,
   };
 
   const redirectToCheckout = async () => {

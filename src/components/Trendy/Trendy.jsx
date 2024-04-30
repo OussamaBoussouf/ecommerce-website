@@ -20,7 +20,7 @@ function Trendy() {
             deleniti? Distinctio labore error cum debitis incidunt
           </p>
           <ButtonLink
-            path="/product/1"
+            path="/products/men"
             className="px-6 py-3 rounded-lg bg-light-blue font-poppins-bold text-dark-blue hover:shadow-xl"
           >
             Shop now
