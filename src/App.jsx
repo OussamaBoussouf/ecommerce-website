@@ -7,12 +7,13 @@ import NavBar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import "@stripe/stripe-js";
 import Success from "./pages/SuccessPage/Success";
-
+import ScrollToTop from "./util/ScrollToTop";
 
 function App() {
   const Layout = () => {
     return (
       <>
+        <ScrollToTop />
         <NavBar />
         <Outlet />
         <Footer />
@@ -41,8 +42,8 @@ function App() {
           path: "/success",
           element: <Success />,
         },
-      ]
-    }
+      ],
+    },
   ]);
 
   return (

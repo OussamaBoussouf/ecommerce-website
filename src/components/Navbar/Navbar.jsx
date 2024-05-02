@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //ICONS
 import { AlignJustify } from "lucide-react";
 import { UserRound } from "lucide-react";
@@ -8,20 +8,34 @@ import { X } from "lucide-react";
 import { useSelector } from "react-redux";
 
 //
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Cart from "../Cart/Cart";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const cart = useSelector((state) => state.products);
+  const location = useLocation();
+
+  const handleOpenCart = () => {
+    setIsCartOpen(true);
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (location) {
+      setIsMenuOpen(false);
+    }
+  }, [location]);
 
   return (
-    <nav className="font-poppins h-[50px] px-3 py-2 md:px-6">
-      <div className="flex justify-between max-w-[1300px] items-center lg:mx-auto">
+    <nav className="font-poppins h-[50px] px-3 py-2 sm:px-20 md:px-6">
+      <div className="flex max-w-[1300px] items-center justify-between lg:mx-auto">
         {/* LEFT BAR */}
-        <div className="hidden md:block">
-          <div className="flex items-center space-x-5">
+        <div className="hidden md:block w-48">
+          <div className="flex items-center justify-between space-x-5">
             <div className="hover:font-bold">
               <Link to="/">Home</Link>
             </div>
@@ -41,15 +55,11 @@ function Navbar() {
         </div>
         {/* RIGHT BAR */}
         <div className="relative">
-          <div className=" flex items-center space-x-6">
+          <div className=" flex items-center justify-end space-x-6 md:w-48">
             <button type="button">
               <UserRound size={20} />
             </button>
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className="relative"
-              type="button"
-            >
+            <button onClick={handleOpenCart} className="relative" type="button">
               <ShoppingCart size={20} />
               {cart.length != 0 ? (
                 <span className="absolute top-[-9px] right-[-9px] h-5 w-5 text-xs bg-blue-500 text-white flex items-center justify-center rounded-full">

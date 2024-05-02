@@ -4,7 +4,7 @@ import Card from "../ui/Card";
 import { useFetch } from "../../hooks/useFetch";
 
 function NewArrivals() {
-  const {data:products, loading, error} = useFetch(`*[_type == "product"]| order(releaseDate asc)[0..3]
+  const {data:products, loading, error} = useFetch(`*[_type == "product"]| order(releaseDate asc)[0..5]
   { "id":_id,
     product_name,
     product_price,
