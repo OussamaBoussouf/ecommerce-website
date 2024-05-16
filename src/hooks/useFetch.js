@@ -9,6 +9,7 @@ export const useFetch = (query) => {
   useEffect(() => {
     async function getProducts() {
       try {
+        if(!loading) setLoading(true);
         const products = await client.fetch(query);
         setData(products);
       } catch (error) {

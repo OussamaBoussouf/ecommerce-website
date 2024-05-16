@@ -10,6 +10,7 @@ import { addToCart } from "../../redux/cartSlice";
 //SANITY
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../../sanity/client";
+import SpinLoading from "../../components/ui/SpinLoading";
 
 const builder = imageUrlBuilder(client);
 
@@ -37,24 +38,22 @@ function Product() {
   }`);
   const [activeImage, setActiveImage] = useState(null);
 
-  console.log(product);
-
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <SpinLoading/>;
 
   if (error) return <p className="text-red-500">an Error occured</p>;
 
   return (
-    <section>
-      <div className="max-w-[1100px] w-full flex flex-col md:flex-row py-10 px-5 sm:px-20 md:px-5 mx-auto gap-5">
-        <div className="flex flex-col gap-3 md:flex-row-reverse">
+    <section className="px-5 sm:px-20 md:px-5 lg:px-5">
+      <div className="max-w-[1100px] flex flex-col md:flex-row py-10 mx-auto gap-5">
+        <div className="flex flex-col lg:flex-row-reverse gap-3 md:w-2/4">
           <img
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full aspect-square object-cover object-center"
             src={activeImage ? activeImage : urlFor(product[0].image).url()}
             alt="product shirt"
           />
-          <div className="flex justify-between flex-shrink-0 md:flex-col">
+          <div className="flex gap-[6.66%] lg:flex-col h-24 lg:h-full lg:w-[100px]">
             <img
-              className="cursor-pointer w-24  object-center object-cover"
+              className="cursor-pointer w-1/5 lg:w-full h-full max-h-24 aspect-square object-center object-cover"
               src={urlFor(product[0].image).url()}
               onClick={() => setActiveImage(urlFor(product[0].image).url())}
               alt="product shirt"
@@ -62,7 +61,7 @@ function Product() {
             {product[0].sub_images.map((image, index) => (
               <img
                 key={index}
-                className="cursor-pointer w-24 object-center object-cover"
+                className="cursor-pointer w-1/5 lg:w-full h-full max-h-24 aspect-square object-center object-cover"
                 src={urlFor(image).url()}
                 onClick={() => setActiveImage(urlFor(image).url())}
                 alt="t-shirt"
@@ -103,15 +102,19 @@ function Product() {
             type="button"
             aria-label="Add product to cart"
             className="px-4 py-2 text-sm bg-purple-700 rounded-lg text-white mb-5 flex items-center gap-x-2 active:scale-95"
-            onClick={() => dispatch(addToCart({
-              id:product[0].id,
-              name:product[0].product_name,
-              price:product[0].product_price,
-              description:product[0].product_description,
-              image: product[0].image,
-              stripe_id: product[0].stripe_id,
-              quantity
-            }))}
+            onClick={() =>
+              dispatch(
+                addToCart({
+                  id: product[0].id,
+                  name: product[0].product_name,
+                  price: product[0].product_price,
+                  description: product[0].product_description,
+                  image: product[0].image,
+                  stripe_id: product[0].stripe_id,
+                  quantity,
+                })
+              )
+            }
           >
             <ShoppingCart size={20} /> ADD TO CART
           </button>

@@ -3,9 +3,9 @@ import React from "react";
 import Card from "../../components/ui/Card";
 
 import { useFetch } from "../../hooks/useFetch";
+import SpinLoading from "../ui/SpinLoading";
 
 function List({ category, selectedSubCat, sortPrice }) {
-
   const {
     data: products,
     loading,
@@ -22,14 +22,15 @@ function List({ category, selectedSubCat, sortPrice }) {
     }
   }`);
 
-  if (loading) return <p>Loading...</p>;
+
+  if (loading) return <SpinLoading />;
 
   if (error) return <p className="text-red-500">an Error occured</p>;
 
   return (
     <div className="grid gap-x-5 gap-y-10 grid-cols-2 sm:grid-cols-3 md:grid-cols-auto-fill">
       {products[0]?.products.map((product) => (
-        <Card key={product.id} product={product} />
+        <Card key={product.id} product={product} category={category} />
       ))}
     </div>
   );
