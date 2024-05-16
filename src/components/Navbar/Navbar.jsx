@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 //ICONS
 import { AlignJustify } from "lucide-react";
 import { UserRound } from "lucide-react";
@@ -14,6 +14,7 @@ import Cart from "../Cart/Cart";
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const menuNode = useRef(null);
   const cart = useSelector((state) => state.products);
   const location = useLocation();
 
@@ -25,25 +26,64 @@ function Navbar() {
   };
 
   useEffect(() => {
-    if (location) {
+    const handler = (event) => {
+      if (!menuNode.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+    if (isMenuOpen) {
+      document.addEventListener("mouseup", handler);
+    }
+    return () => document.removeEventListener("mouseup", handler);
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (isMenuOpen) {
       setIsMenuOpen(false);
     }
   }, [location]);
 
   return (
-    <nav className="font-poppins h-[50px] px-3 py-2 sm:px-20 md:px-6">
+    <nav className="font-poppins h-[50px] px-3 py-2 sm:px-5 md:px-6">
       <div className="flex max-w-[1300px] items-center justify-between lg:mx-auto">
         {/* LEFT BAR */}
         <div className="hidden md:block w-48">
           <div className="flex items-center justify-between space-x-5">
-            <div className="hover:font-bold">
-              <Link to="/">Home</Link>
+            <div>
+              <Link
+                className={
+                  location.pathname == "/"
+                    ? "font-bold text-blue-600"
+                    : "hover:font-bold"
+                }
+                to="/"
+              >
+                Home
+              </Link>
             </div>
-            <div className="hover:font-bold">
-              <Link to="/products/men">Men</Link>
+            <div>
+              <Link
+                className={
+                  location.pathname == "/products/men"
+                    ? "font-bold text-blue-600"
+                    : "hover:font-bold"
+                }
+                to="/products/men"
+              >
+                Men
+              </Link>
             </div>
-            <div className="hover:font-bold">
-              <Link to="/products/women">Women</Link>
+            <div>
+              <Link
+                className={
+                  location.pathname == "/products/women"
+                    ? "font-bold text-blue-600"
+                    : "hover:font-bold"
+                }
+                to="/products/women"
+              >
+                Women
+              </Link>
             </div>
           </div>
         </div>
@@ -56,9 +96,6 @@ function Navbar() {
         {/* RIGHT BAR */}
         <div className="relative">
           <div className=" flex items-center justify-end space-x-6 md:w-48">
-            <button type="button">
-              <UserRound size={20} />
-            </button>
             <button onClick={handleOpenCart} className="relative" type="button">
               <ShoppingCart size={20} />
               {cart.length != 0 ? (
@@ -77,7 +114,10 @@ function Navbar() {
           </div>
           {/* MENU BAR */}
           {isMenuOpen ? (
-            <div className="absolute z-10 bg-white right-0 top-8 rounded-lg p-3 space-y-3 w-28 shadow-2xl md:hidden">
+            <div
+              ref={menuNode}
+              className="absolute z-10 bg-white right-0 top-8 rounded-lg p-3 space-y-3 w-28 shadow-2xl md:hidden"
+            >
               <div>
                 <Link to="/">Home</Link>
               </div>

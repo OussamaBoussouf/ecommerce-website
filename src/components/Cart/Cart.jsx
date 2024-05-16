@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 //ICON
 import { X } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
@@ -26,6 +26,7 @@ const getStripe = () => {
 
 function Cart({ onClose }) {
   const cart = useSelector((state) => state.products);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const drawerNode = useRef(null);
   const total = cart
@@ -61,9 +62,12 @@ function Cart({ onClose }) {
   };
 
   const redirectToCheckout = async () => {
+    setLoading(true);
     const stripe = await getStripe();
     const { error } = await stripe.redirectToCheckout(checkoutOptions);
-    console.log("Stripe checkout error", error);
+    if (error) {
+      setLoading(false);
+    }
   };
 
   return (
@@ -88,10 +92,12 @@ function Cart({ onClose }) {
                 src={urlFor(product.image).url()}
                 alt="blue shirt"
               />
-              <div>
-                <h2 className="sm:text-xl font-poppins-bold">{product.name}</h2>
-                <p className="text-xs md:text-sm mb-1">
-                  {product.description.substring(0, 150) + "..."}
+              <div className="flex flex-col justify-between">
+                <h2 className="text-sm sm:text-xl font-poppins-bold">
+                  {product.name}
+                </h2>
+                <p className="text-sm md:text-sm mb-1">
+                  {product.description.substring(0, 85) + "..."}
                 </p>
                 <div className="flex items-center justify-between">
                   <p className="text-sm md:text-[1rem]">
@@ -114,15 +120,15 @@ function Cart({ onClose }) {
           </p>
           <button
             type="button"
-            disabled={cart.length === 0 && true}
+            disabled={(cart.length === 0 || loading) && true}
             onClick={redirectToCheckout}
             className={
-              cart.length === 0
+              (cart.length === 0 || loading)
                 ? "w-full bg-gray-300 py-3 font-poppins-bold rounded-lg text-white"
                 : "w-full active:scale-95 bg-purple-700 py-3 font-poppins-bold rounded-lg text-white"
             }
           >
-            CHECKOUT
+            {loading ? "LOADING..." : "CHECKOUT"}
           </button>
         </div>
       </div>

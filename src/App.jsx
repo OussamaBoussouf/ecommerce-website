@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import "@stripe/stripe-js";
 import Success from "./pages/SuccessPage/Success";
 import ScrollToTop from "./util/ScrollToTop";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   const Layout = () => {
@@ -31,7 +32,7 @@ function App() {
           element: <Home />,
         },
         {
-          path: "/product/:id",
+          path: "/product/:category/:id",
           element: <Product />,
         },
         {
@@ -41,9 +42,12 @@ function App() {
         {
           path: "/success",
           element: <Success />,
-        },
+        }
       ],
-    },
+    },{
+      path: "/*",
+      element:<NotFound />
+    }
   ]);
 
   return (

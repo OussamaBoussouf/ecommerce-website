@@ -9,19 +9,16 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="font-poppins px-3 sm:px-20 md:px-6">
+    <footer className="font-poppins px-3 sm:px-5 md:px-6">
       <div className="max-w-[1300px] mx-auto py-10">
         <div className="border-b-[1px] border-b-black mb-5 md:flex md:gap-3">
           <ul className="space-y-1 font-poppins-light mb-3 basis-1/6">
             <li className="font-poppins-bold">Categories</li>
             <li>
-              <Link to="/products/1">Men</Link>
+              <Link to="/products/men">Men</Link>
             </li>
             <li>
-              <Link to="/products/2">Women</Link>
-            </li>
-            <li>
-              <Link to="/products/3">Kids</Link>
+              <Link to="/products/women">Women</Link>
             </li>
           </ul>
           <ul className="space-y-1 font-poppins-light mb-3 basis-1/6">

@@ -20,8 +20,9 @@ function Products() {
  
 
   return (
-    <div className="max-w-[1300px] mx-auto py-16 px-3 md:flex md:gap-10 lg:gap-16">
-      <aside className="min-w-[200px]">
+    <div className="py-16 px-5">
+     <div className="max-w-[1300px] mx-auto md:flex md:gap-10 lg:gap-16">
+     <aside className="min-w-[200px]">
         <div className="md:sticky md:top-3">
           <h2 className="font-poppins-bold text-xl mb-3">Product Categories</h2>
           <div className="space-x-1 mb-3">
@@ -88,6 +89,7 @@ function Products() {
       <section className="flex-grow">
         <List category={catId} sortPrice={sortPrice} selectedSubCat={selectedSubCat} />
       </section>
+     </div>
     </div>
   );
 }

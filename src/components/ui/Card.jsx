@@ -9,11 +9,12 @@ function urlFor(source) {
   return builder.image(source);
 }
 
-function Card({ product }) {
+function Card({ product, category }) {
+
   return (
-    <div>
+    <div className="mx-1">
       <div className="overflow-hidden mb-3">
-        <Link to={`/product/${product.id}`}>
+        <Link to={`/product/${category}/${product.id}`}>
           <img
             src={urlFor(product.image).url()}
             width={278}
@@ -23,7 +24,7 @@ function Card({ product }) {
           />
         </Link>
       </div>
-      <p className="font-poppins-bold text-sm md:text-lg">
+      <p className="font-poppins-bold text-lg">
         {product.product_name}
       </p>
       <p className="text-sm md:text-[1rem]">price: ${product.product_price}</p>

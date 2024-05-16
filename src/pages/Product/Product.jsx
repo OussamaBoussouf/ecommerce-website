@@ -10,6 +10,7 @@ import { addToCart } from "../../redux/cartSlice";
 //SANITY
 import imageUrlBuilder from "@sanity/image-url";
 import { client } from "../../sanity/client";
+import SpinLoading from "../../components/ui/SpinLoading";
 
 const builder = imageUrlBuilder(client);
 
@@ -37,9 +38,7 @@ function Product() {
   }`);
   const [activeImage, setActiveImage] = useState(null);
 
-  console.log(product);
-
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <SpinLoading/>;
 
   if (error) return <p className="text-red-500">an Error occured</p>;
 
